@@ -19,14 +19,24 @@ public class App
         HashMap<String, Object> header = new HashMap<>();
         header.put("Authorization", "Basic cnpwX3Rlc3RfTHp6T0RNZW1BY0FVVGI6VFBOM1J1dHJDVTU4b2sybmR6aDZtNTky");
         RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://api-web.func.razorpay.in/v1/payments/pay_FaR900Ynf4igc2");
+        requestSpecification.baseUri("https://api-web.func.razorpay.in/v1");
         requestSpecification.headers(header);
-        Response response = requestSpecification.request().get();
+        Response response = requestSpecification.request().get("/payments/pay_FaR900Ynf4igc2");
+        return response;
+    }
+
+    public static Response getPaymentDetails(String host){
+        HashMap<String, Object> header = new HashMap<>();
+        header.put("Authorization", "Basic cnpwX3Rlc3RfTHp6T0RNZW1BY0FVVGI6VFBOM1J1dHJDVTU4b2sybmR6aDZtNTky");
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.baseUri(host);
+        requestSpecification.headers(header);
+        Response response = requestSpecification.request().get("/payments/pay_FaR900Ynf4igc2");
         return response;
     }
 
     public static void main( String[] args )
     {
-        System.out.println(getPaymentDetails().getBody().asString());
+        System.out.println(getPaymentDetails("localhost").getBody().asString());
     }
 }
